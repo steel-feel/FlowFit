@@ -22,91 +22,72 @@ const Colors = {
   utOrange: '#fb8500ff',
 };
 
-const DAILY_STEPS_TIME_KEY = 'daily_steps_time';
-const REMINDER_TIME_KEY = 'reminder_time';
+const REMINDER_TIME_KEY = 'reminder_time'; // Key for storing reminder time in AsyncStorage
 
-const SetWalkingStepsTime: React.FC = () => {
-  const [dailyStepsTime, setDailyStepsTime] = useState<Date | null>(null);
+const SetWalkingReminder: React.FC = () => {
+  // State to hold the selected reminder time
   const [reminderTime, setReminderTime] = useState<Date | null>(null);
-  const [tempDailyStepsTime, setTempDailyStepsTime] = useState<Date>(new Date());
+  // Temporary state for the DateTimePicker, allows user to pick without immediate saving
   const [tempReminderTime, setTempReminderTime] = useState<Date>(new Date());
-  const [activePicker, setActivePicker] = useState<'dailySteps' | 'reminder' | null>(null);
+  // State to control the visibility of the DateTimePicker modal
+  const [showPicker, setShowPicker] = useState<boolean>(false);
 
+  // Effect to load the saved reminder time when the component mounts
   useEffect(() => {
-    const loadTimes = async () => {
+    const loadReminderTime = async () => {
       try {
-        const dailyStepsStored = await AsyncStorage.getItem(DAILY_STEPS_TIME_KEY);
         const reminderStored = await AsyncStorage.getItem(REMINDER_TIME_KEY);
-        if (dailyStepsStored) {
-          const date = new Date(dailyStepsStored);
-          setDailyStepsTime(date);
-          setTempDailyStepsTime(date);
-        }
         if (reminderStored) {
           const date = new Date(reminderStored);
-          setReminderTime(date);
-          setTempReminderTime(date);
+          setReminderTime(date); // Set the display time
+          setTempReminderTime(date); // Set the picker's initial value
         }
       } catch (e) {
-        console.error('Failed to load times:', e);
+        console.error('Failed to load reminder time:', e);
       }
     };
-    loadTimes();
-  }, []);
+    loadReminderTime();
+  }, []); // Empty dependency array ensures this runs only once on mount
 
+  /**
+   * Schedules a local notification using Notifee.
+   * @param date The date and time for the notification to trigger.
+   * @param id A unique ID for the notification.
+   * @param title The title of the notification.
+   * @param body The body text of the notification.
+   */
   const scheduleNotification = async (date: Date, id: string, title: string, body: string) => {
     const trigger: TimestampTrigger = {
       type: TriggerType.TIMESTAMP,
-      timestamp: date.getTime(),
-      repeatFrequency: RepeatFrequency.DAILY,
+      timestamp: date.getTime(), // Notification will trigger at this specific timestamp
+      repeatFrequency: RepeatFrequency.DAILY, // Notification will repeat daily
     };
 
     await notifee.createTriggerNotification(
       {
-        id,
+        id, // Unique ID for this notification
         title,
         body,
         android: {
-          channelId: 'default', // Ensure this channel exists or create it
+          channelId: 'default', // Android requires a channel ID for notifications
+          // You might want to add smallIcon, color, etc. for better Android experience
         },
       },
-      trigger,
+      trigger, // The trigger configuration
     );
   };
 
-  const saveDailyStepsTime = async () => {
-    try {
-      setDailyStepsTime(tempDailyStepsTime);
-      await AsyncStorage.setItem(DAILY_STEPS_TIME_KEY, tempDailyStepsTime.toISOString());
-
-      const now = new Date();
-      // To ensure the notification schedules for the upcoming set time if it's already passed today
-      const notificationDate = new Date(tempDailyStepsTime);
-      if (notificationDate.getTime() < now.getTime()) {
-        notificationDate.setDate(notificationDate.getDate() + 1); // Schedule for next day
-      }
-
-      await scheduleNotification(
-        notificationDate,
-        'daily-steps-goal',
-        '🚶 Daily Steps Goal',
-        'Time to review your daily steps goal!',
-      );
-
-      Alert.alert('Success', 'Daily steps goal time has been updated.');
-    } catch (e) {
-      console.error('Failed to save daily steps time:', e);
-    }
-    setActivePicker(null);
-  };
-
+  /**
+   * Saves the selected reminder time to AsyncStorage and schedules the notification.
+   */
   const saveReminderTime = async () => {
     try {
-      setReminderTime(tempReminderTime);
-      await AsyncStorage.setItem(REMINDER_TIME_KEY, tempReminderTime.toISOString());
+      setReminderTime(tempReminderTime); // Update the displayed reminder time
+      await AsyncStorage.setItem(REMINDER_TIME_KEY, tempReminderTime.toISOString()); // Store as ISO string
 
       const now = new Date();
-      // To ensure the notification schedules for the upcoming set time if it's already passed today
+      // Create a notification date. If the chosen time is already past today,
+      // schedule it for the same time tomorrow to ensure it triggers.
       const notificationDate = new Date(tempReminderTime);
       if (notificationDate.getTime() < now.getTime()) {
         notificationDate.setDate(notificationDate.getDate() + 1); // Schedule for next day
@@ -114,7 +95,7 @@ const SetWalkingStepsTime: React.FC = () => {
 
       await scheduleNotification(
         notificationDate,
-        'steps-reminder',
+        'steps-reminder', // Unique ID for the walking reminder notification
         '👟 Get Walking!',
         'Don\'t forget to hit your steps goal!',
       );
@@ -122,31 +103,23 @@ const SetWalkingStepsTime: React.FC = () => {
       Alert.alert('Success', 'Walking reminder time has been updated.');
     } catch (e) {
       console.error('Failed to save reminder time:', e);
+      Alert.alert('Error', 'Failed to save reminder time. Please try again.');
+    } finally {
+      setShowPicker(false); // Close the picker modal
     }
-    setActivePicker(null);
   };
 
+  /**
+   * Formats a Date object into a readable time string (e.g., "09:00 AM").
+   * @param date The Date object to format.
+   * @returns A formatted time string.
+   */
   const timeString = (date: Date) =>
     date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cardsWrapper}>
-        {/* Daily Steps Goal Time Card */}
-        <View style={styles.card}>
-          <Text style={styles.title}>🎯 Daily Steps Goal Time</Text>
-          {dailyStepsTime ? (
-            <Text style={styles.timeText}>Your set time: {timeString(dailyStepsTime)}</Text>
-          ) : (
-            <Text style={styles.timeText}>No goal time set yet</Text>
-          )}
-          <TouchableOpacity style={styles.setButton} onPress={() => setActivePicker('dailySteps')}>
-            <Text style={styles.setButtonText}>
-              {dailyStepsTime ? 'Edit Goal Time' : 'Set Goal Time'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
         {/* Walking Reminder Time Card */}
         <View style={styles.card}>
           <Text style={styles.title}>🔔 Walking Reminder</Text>
@@ -155,7 +128,7 @@ const SetWalkingStepsTime: React.FC = () => {
           ) : (
             <Text style={styles.timeText}>No reminder time set</Text>
           )}
-          <TouchableOpacity style={styles.setButton} onPress={() => setActivePicker('reminder')}>
+          <TouchableOpacity style={styles.setButton} onPress={() => setShowPicker(true)}>
             <Text style={styles.setButtonText}>
               {reminderTime ? 'Edit Reminder' : 'Set Reminder'}
             </Text>
@@ -165,27 +138,35 @@ const SetWalkingStepsTime: React.FC = () => {
 
       {/* Floating Modal Picker */}
       <Modal
-        visible={!!activePicker}
+        visible={showPicker}
         transparent
         animationType="fade"
-        onRequestClose={() => setActivePicker(null)}
+        onRequestClose={() => setShowPicker(false)} // Allows closing by pressing outside on Android
       >
         <View style={styles.modalBackdrop}>
           <View style={styles.pickerOverlay}>
             <DateTimePicker
-              value={activePicker === 'dailySteps' ? tempDailyStepsTime : tempReminderTime}
+              value={tempReminderTime} // Value controlled by temporary state
               mode="time"
-              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-              onChange={(e, d) => {
-                if (d) {
-                  activePicker === 'dailySteps' ? setTempDailyStepsTime(d) : setTempReminderTime(d);
+              display={Platform.OS === 'ios' ? 'spinner' : 'default'} // 'spinner' for iOS, 'default' for Android
+              onChange={(event, selectedDate) => {
+                if (selectedDate) {
+                  setTempReminderTime(selectedDate); // Update temporary state
+                  // On Android, the picker closes automatically after selection in 'default' mode
+                  // For iOS 'spinner', it stays open until explicitly closed or saved
+                  if (Platform.OS === 'android' && event.type === 'set') {
+                    // Auto-save on Android 'set' event if not using a separate save button
+                    // For this setup, we still rely on the 'Save' button for consistency.
+                  }
+                } else if (Platform.OS === 'android' && event.type === 'dismissed') {
+                  setShowPicker(false); // Dismiss modal if Android picker is dismissed
                 }
               }}
-              themeVariant="light"
+              themeVariant="light" // Ensures a light theme for the picker
             />
             <TouchableOpacity
               style={styles.saveButton}
-              onPress={activePicker === 'dailySteps' ? saveDailyStepsTime : saveReminderTime}
+              onPress={saveReminderTime} // Call save function on button press
             >
               <Text style={styles.saveButtonText}>Save</Text>
             </TouchableOpacity>
@@ -201,21 +182,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.skyBlue, // Using the new color
     padding: 16,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
   },
   cardsWrapper: {
     alignItems: 'center',
-    gap: 20,
+    gap: 20, // Spacing between cards (though now only one card)
+    width: '100%', // Ensure wrapper takes full width for centering
   },
   card: {
     backgroundColor: '#fff',
     padding: 20,
-    width: '90%',
+    width: '90%', // Card width
+    maxWidth: 400, // Max width for larger screens
     borderRadius: 12,
-    elevation: 3,
-    shadowColor: Colors.prussianBlue, // Using the new color
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
+    elevation: 3, // Android shadow
+    shadowColor: Colors.prussianBlue, // iOS shadow color
+    shadowOpacity: 0.1, // iOS shadow opacity
+    shadowRadius: 6, // iOS shadow blur radius
+    shadowOffset: { width: 0, height: 2 }, // iOS shadow offset
     alignItems: 'center',
   },
   title: {
@@ -236,6 +221,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
+    marginTop: 10, // Add some margin above the button
   },
   setButtonText: {
     color: '#fff',
@@ -244,7 +230,7 @@ const styles = StyleSheet.create({
   },
   modalBackdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.3)', // Semi-transparent background for the modal
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -253,7 +239,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 20,
     alignItems: 'center',
-    width: '80%',
+    width: '80%', // Picker overlay width
+    maxWidth: 350, // Max width for larger screens
   },
   saveButton: {
     marginTop: 10,
@@ -269,4 +256,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SetWalkingStepsTime;
+export default SetWalkingReminder;

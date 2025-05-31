@@ -12,8 +12,8 @@ const projectId = '05468067e7445a54c35dcf7e58fdba4f';
 // 2. Create config
 const metadata = {
   name: 'Flowfit',
-  description: 'Flowfit app : build flowing healthy habbits',
-  url: 'https://helloworld.com/appkit',
+  description: 'Flowfit app : build flowing healthy habits',
+  url: 'https://flow.fit/appkit',
   icons: ['https://picsum.photos/200'],
   redirect: {
     native: 'YOUR_APP_SCHEME://',
@@ -23,16 +23,16 @@ const metadata = {
 const config = defaultConfig({ metadata });
 
 // 3. Define your chains
-const flowtestnet = {
-  chainId: 545,
-  name: 'Flow EVM Testnet',
+const flowmainnet = {
+  chainId: 747,
+  name: 'Flow EVM Mainnet',
   currency: 'FLOW',
-  explorerUrl: 'https://evm-testnet.flowscan.io',
-  rpcUrl: 'https://testnet.evm.nodes.onflow.org',
+  explorerUrl: 'https://evm.flowscan.io',
+  rpcUrl: 'https://mainnet.evm.nodes.onflow.org'
 };
 
 
-const chains = [flowtestnet];
+const chains = [flowmainnet];
 
 // 4. Create modal
 createAppKit({
@@ -40,7 +40,7 @@ createAppKit({
   chains,
   config,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
-  defaultChain: flowtestnet, // Optional - defaults to the first chain in your list
+  defaultChain: flowmainnet, // Optional - defaults to the first chain in your list
 });
 
 export default function App() {
