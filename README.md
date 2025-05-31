@@ -60,6 +60,7 @@ FlowFit is a React Native mobile app designed to help users develop and stick to
 * `android/`: Android-specific project files.
 * `ios/`: iOS-specific project files.
 * `__tests__/`: Contains test files for the application.
+* `evm-contrats` : Contains solidity contracts for staking health commitments 
 
 ## Contributing
 
