@@ -133,7 +133,7 @@ const StepsChallenge: React.FC = () => {
         type: 0,
       }); // Placeholder, adapt to your steps goal contract function
 
-      Alert.alert('Goal Set!', `You committed to ${steps} steps with ${stakeAmount} WND!`);
+      Alert.alert('Goal Set!', `You committed to ${steps} steps with ${stakeAmount} FLOW!`);
     } catch (e) {
       console.error('Setting goal error:', e);
       Alert.alert('Error', 'Something went wrong while setting your goal.');
