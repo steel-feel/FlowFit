@@ -1,97 +1,98 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+![FlowFit Cover Image](./FlowFit_banner.png) 
 
-# Getting Started
+# 🚶 FlowFit
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+**Healthy Habit Builder App on the Flow Blockchain**
 
-## Step 1: Start Metro
+FlowFit is a React Native mobile app designed to help users develop and stick to healthy habits. It uses the **Flow blockchain** to securely track progress, offering **rewards** for consistent healthy behavior and **penalties** (slashing) for missed goals.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### Key Features
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+* **Habit Tracking**: Easily monitor and manage your daily habits.
+* **Blockchain Integration**: All habit commitments is securely recorded on the Flow blockchain.
+* **Motivation through Rewards/Slashing**: Stay motivated with a system that rewards you for maintaining good habits and penalizes you for falling behind.
+* **User-Friendly Interface**: The app is intuitively designed for a smooth user experience.
 
-```sh
-# Using npm
-npm start
+## Getting Started
 
-# OR using Yarn
-yarn start
-```
+### Prerequisites
 
-## Step 2: Build and run your app
+* [Node.js](https://nodejs.org/) (version 14 or higher)
+* [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+* [React Native CLI](https://reactnative.dev/docs/environment-setup)
+* Android Studio or Xcode for mobile development
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Installation
 
-### Android
+1. **Clone the Repository**
 
-```sh
-# Using npm
-npm run android
+   ```bash
+   git clone https://github.com/steel-feel/FlowFit.git
+   cd FlowFit
+   ```
 
-# OR using Yarn
-yarn android
-```
+2. **Install Dependencies**
 
-### iOS
+   Using Yarn:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+   ```bash
+   yarn install
+   ```
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+   Or using npm:
 
-```sh
-bundle install
-```
+   ```bash
+   npm install
+   ```
 
-Then, and every time you update your native dependencies, run:
+3. 
+   **Run on iOS**
 
-```sh
-bundle exec pod install
-```
+   ```bash
+    npx react-native run-ios
+   ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+   > **Note**: Ensure that you have an emulator or physical device connected.
 
-```sh
-# Using npm
-npm run ios
+## Project Structure
 
-# OR using Yarn
-yarn ios
-```
+* `src/`: Contains the main source code for the application.
+* `android/`: Android-specific project files.
+* `ios/`: iOS-specific project files.
+* `__tests__/`: Contains test files for the application.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Contributing
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Contributions are welcome! Please follow these steps:
 
-## Step 3: Modify your app
+1. Fork the repository.
 
-Now that you have successfully run the app, let's make changes!
+2. Create a new branch:
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+3. Make your changes and commit them:
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+   ```bash
+   git commit -m "Add YourFeature"
+   ```
 
-## Congratulations! :tada:
+4. Push to your fork:
 
-You've successfully run and modified your React Native App. :partying_face:
+   ```bash
+   git push origin feature/YourFeature
+   ```
 
-### Now what?
+5. Submit a pull request.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Please ensure your code adheres to the project's coding standards and passes all tests.
 
-# Troubleshooting
+## License
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+This project is licensed under the [MIT License](LICENSE).
 
-# Learn More
+## Contact
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+For questions or feedback, please open an issue on the [GitHub repository](https://github.com/steel-feel/FlowFit/issues).
