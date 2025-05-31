@@ -11,8 +11,8 @@ import notifee, { AuthorizationStatus } from '@notifee/react-native';
 
 // Get screen width for responsive card sizing
 const { width } = Dimensions.get('window');
-const cardMargin = 10;
-const numColumns = 2; // Number of columns in the grid
+const cardMargin = 40;
+const numColumns = 1; // Number of columns in the grid
 const cardWidth = (width - (numColumns + 1) * cardMargin) / numColumns; // Calculate card width dynamically
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
@@ -69,14 +69,14 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
   const featureCards = [
     {
       id: 'stepsChallenge',
-      title: '🏁 Start a Steps Challenge',
-      description: 'Compete with friends and track your steps to stay motivated.',
+      title: '🏁 My Steps Challenge',
+      description: 'Get started with fitness flow.',
       action: () => navigation.replace('StepsChallenge'),
     },
     {
       id: 'viewStepsStats',
       title: '📈 View Steps Stats',
-      description: 'Analyze your daily, weekly, and monthly step data for insights.',
+      description: 'Check your steps graph, is it trending ?',
       action: () => navigation.replace('Home'),
     },
     // You can add more feature cards here
@@ -116,9 +116,7 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
             >
               <Text style={styles.cardTitle}>{card.title}</Text>
               <Text style={styles.cardDescription}>{card.description}</Text>
-              <View style={styles.cardButtonContainer}>
-                <Text style={styles.cardButtonText}>Go</Text>
-              </View>
+            
             </TouchableOpacity>
           ))}
         </View>
@@ -208,7 +206,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
     alignItems: 'center',
-    justifyContent: 'space-between', // Distribute content vertically
+    justifyContent: 'space-evenly', // Distribute content vertically
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -221,13 +219,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#2D3748',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 1,
   },
   cardDescription: {
     fontSize: 14,
     color: '#4A5568',
     textAlign: 'center',
-    marginBottom: 15,
+    marginBottom: 1,
   },
   cardButtonContainer: {
     backgroundColor: '#667EEA',
