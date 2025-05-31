@@ -1,5 +1,4 @@
 ![FlowFit Cover Image](./banner.png) 
-
 # 🚶 FlowFit
 
 **Healthy Habit Builder App on the Flow Blockchain**
