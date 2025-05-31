@@ -1,4 +1,4 @@
-![FlowFit Cover Image](./banner2.png) 
+![FlowFit Cover Image](./banner.png) 
 
 # 🚶 FlowFit
 
