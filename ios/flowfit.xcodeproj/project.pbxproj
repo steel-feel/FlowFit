@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-flowfit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-flowfit.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		45BE846DC5E54AD38673EF25 /* RobotoBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CF6A6BAB7B74F1BB7EB3652 /* RobotoBold.ttf */; };
+		57F6A91F5AB547B4AEB18E89 /* RobotoMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EC9105EEBF142D0B504C9C8 /* RobotoMedium.ttf */; };
 		69051DF64A06D8AA6B13272E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		F614E2C0FDF14589B115576F /* RobotoRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE1543DE508D4AE795408631 /* RobotoRegular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,9 +24,12 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = flowfit/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-flowfit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowfit.debug.xcconfig"; path = "Target Support Files/Pods-flowfit/Pods-flowfit.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-flowfit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowfit.release.xcconfig"; path = "Target Support Files/Pods-flowfit/Pods-flowfit.release.xcconfig"; sourceTree = "<group>"; };
+		5CF6A6BAB7B74F1BB7EB3652 /* RobotoBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = RobotoBold.ttf; path = ../src/assets/fonts/RobotoBold.ttf; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-flowfit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flowfit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EC9105EEBF142D0B504C9C8 /* RobotoMedium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = RobotoMedium.ttf; path = ../src/assets/fonts/RobotoMedium.ttf; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = flowfit/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = flowfit/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BE1543DE508D4AE795408631 /* RobotoRegular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = RobotoRegular.ttf; path = ../src/assets/fonts/RobotoRegular.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F280561F2DEA467E0041453F /* flowfit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = flowfit.entitlements; path = flowfit/flowfit.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +83,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				EB2D36F216BA4C96A83A1E11 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -98,6 +105,17 @@
 				5709B34CF0A7D63546082F79 /* Pods-flowfit.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EB2D36F216BA4C96A83A1E11 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5CF6A6BAB7B74F1BB7EB3652 /* RobotoBold.ttf */,
+				5EC9105EEBF142D0B504C9C8 /* RobotoMedium.ttf */,
+				BE1543DE508D4AE795408631 /* RobotoRegular.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +181,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				69051DF64A06D8AA6B13272E /* PrivacyInfo.xcprivacy in Resources */,
+				45BE846DC5E54AD38673EF25 /* RobotoBold.ttf in Resources */,
+				57F6A91F5AB547B4AEB18E89 /* RobotoMedium.ttf in Resources */,
+				F614E2C0FDF14589B115576F /* RobotoRegular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
